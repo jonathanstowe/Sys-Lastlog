@@ -16,6 +16,11 @@
 #*****************************************************************************
 #*                                                                           *
 #*      $Log: Lastlog.xs,v $
+#*      Revision 1.4  2004/08/18 20:16:56  jonathan
+#*      * Altered tests to use Test::More
+#*      * fixed deprecation in the plastlog
+#*      * remedied the _PATH_LASTLOG mistake
+#*
 #*      Revision 1.3  2004/08/18 17:05:36  jonathan
 #*      updated readem
 #*      fixed _PATH_LASTLOG with Solaris compiler
@@ -84,6 +89,7 @@ struct lastlog *getlluid(int uid)
      return( ( void *)0);
   }
 
+
   where = lseek(ll_fd,0, SEEK_CUR);
 
   lseek(ll_fd, (off_t)(uid * sizeof( struct lastlog)), SEEK_SET);
@@ -108,7 +114,7 @@ int get_lastlog_fd(void)
 
    if ( ll_fd = -1 )
    {
-     ll_fd = open("_PATH_LASTLOG",O_RDONLY);
+     ll_fd = open(_PATH_LASTLOG,O_RDONLY);
    }
 
    return(ll_fd);
@@ -145,6 +151,8 @@ SV *llent2hashref(IV count, struct lastlog *llent)
 }
 
 MODULE = Sys::Lastlog		PACKAGE = Sys::Lastlog		
+
+PROTOTYPES: ENABLE
 
 void
 getllent(self)
@@ -203,7 +211,7 @@ char *logname
     if(pwd = getpwnam(logname))
     {
       llent = getlluid(pwd->pw_uid);
-      if ( llent )
+      if ( llent != (void *)0)
       {
         ll_ref = llent2hashref(pwd->pw_uid,llent);         
         EXTEND(SP,1);

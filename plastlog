@@ -17,7 +17,7 @@ Username         Port     From                    Latest
 
 format STDOUT =
 @<<<<<<<<<<<<    @<<<<<   @<<<<<<<<<<<<<<<<<<<<<  @<<<<<<<<<<<<<<<<<<<<<<<
-$login           $port    $host                   $when
+$login,          $port,   $host,                  $when
 .
 
 my $ll = Sys::Lastlog->new();
