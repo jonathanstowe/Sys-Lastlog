@@ -15,6 +15,11 @@
 #*****************************************************************************
 #*                                                                           *
 #*      $Log: Lastlog.pm,v $
+#*      Revision 1.3  2004/08/18 17:05:36  jonathan
+#*      updated readem
+#*      fixed _PATH_LASTLOG with Solaris compiler
+#*      fixed plastlog bug where lastlog file is corrupt
+#*
 #*      Revision 1.2  2004/03/02 20:28:07  jonathan
 #*      Put back in CVS
 #*
@@ -143,7 +148,7 @@ use vars qw(
           DynaLoader
          );
 
-($VERSION) = q$Revision: 1.2 $ =~ /([\d.]+)/;
+($VERSION) = q$Revision: 1.3 $ =~ /([\d.]+)/;
 
 bootstrap Sys::Lastlog $VERSION;
 
@@ -216,6 +221,15 @@ from the rotation.
 This should build on most systems given the notes in README but the author
 would appreciate being informed of any unusual systems where difficulty
 may be experienced.
+
+Occasionaly you may find that the entries in your /etc/passwd are out of
+order and this may give rise to test failures or other problems.  You can
+either run setllent() if you find a missing entry or reorder your passwd
+file numerically.
+
+You also almost certainly want to *not* try and get a lastlog entry for the
+user 'nobody' as this conventionally has a uid of 65534 and the lastlog file
+doesn't get that big.
 
 =head1 AUTHOR
 

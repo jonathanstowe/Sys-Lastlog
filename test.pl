@@ -52,6 +52,8 @@ eval
 };
 if ( $@ )
 {
+
+  print $@;
   ok(0);
 }
 else

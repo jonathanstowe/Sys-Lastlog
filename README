@@ -33,7 +33,7 @@ Finally some systems may not define '_PATH_LASTLOG' in paths.h which will
 lead to a compile time error for the XS part of this module - on these
 systems you will need to supply this definition yourself :
 
-  perl Makefile.PL DEFINE='D_PATH_LASTLOG=/var/adm/lastlog'
+  perl Makefile.PL DEFINE='-D_PATH_LASTLOG=/var/adm/lastlog'
 
 for example.  You will have to discover where the lastlog file on your
 system resides for yourself.
@@ -41,6 +41,8 @@ system resides for yourself.
 It is infact highly likely that the above two circumstances will both
 arise on the same system (Solaris again :) and that the two sets of
 defines will need to be combined.
+
+  perl Makefile.PL DEFINE='-D_PATH_LASTLOG=/var/adm/lastlog -DUSE_LASTLOG_H'
 
 COPYRIGHT AND LICENCE
 

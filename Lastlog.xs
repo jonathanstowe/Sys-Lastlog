@@ -16,6 +16,11 @@
 #*****************************************************************************
 #*                                                                           *
 #*      $Log: Lastlog.xs,v $
+#*      Revision 1.3  2004/08/18 17:05:36  jonathan
+#*      updated readem
+#*      fixed _PATH_LASTLOG with Solaris compiler
+#*      fixed plastlog bug where lastlog file is corrupt
+#*
 #*      Revision 1.2  2004/03/02 20:28:07  jonathan
 #*      Put back in CVS
 #*
@@ -103,7 +108,7 @@ int get_lastlog_fd(void)
 
    if ( ll_fd = -1 )
    {
-     ll_fd = open(_PATH_LASTLOG,O_RDONLY);
+     ll_fd = open("_PATH_LASTLOG",O_RDONLY);
    }
 
    return(ll_fd);

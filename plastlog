@@ -24,7 +24,9 @@ my $ll = Sys::Lastlog->new();
 
 while ( my @pwent = getpwent() )
 {
-   my $llent = $ll->getlluid($pwent[2]);
+   last if $pwent[2] >= 65534;
+   my $llent = $ll->getlluid($pwent[2]) || next;
+
 
    $login = $pwent[0];
    $port  = $llent->ll_line();
