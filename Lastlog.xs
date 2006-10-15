@@ -112,7 +112,7 @@ int get_lastlog_fd(void)
 
    static int ll_fd = -1;
 
-   if ( ll_fd = -1 )
+   if ( ll_fd == -1 )
    {
      ll_fd = open(_PATH_LASTLOG,O_RDONLY);
    }
@@ -160,8 +160,14 @@ SV *self
   PPCODE:
     struct lastlog *llent;
     SV *ll_ref;
+    HV *self_hash;
 
     static IV count = 0;
+
+    if(!SvROK(self)) 
+        croak("Must be called as an object method");
+
+    self_hash = (HV *)SvRV(self);
 
     llent = getllent();
 
@@ -183,8 +189,12 @@ IV uid
   PPCODE:
     struct lastlog *llent;
     SV *ll_ref;
+    HV *self_hash;
 
-    static IV count = 0;
+    if(!SvROK(self)) 
+        croak("Must be called as an object method");
+
+    self_hash = (HV *)SvRV(self);
 
     llent = getlluid(uid);
 
@@ -207,8 +217,13 @@ char *logname
     struct passwd *pwd;
     struct lastlog *llent;
     SV *ll_ref;
+    HV *self_hash;
 
-    if(pwd = getpwnam(logname))
+    if(!SvROK(self)) 
+        croak("Must be called as an object method");
+
+    self_hash = (HV *)SvRV(self);
+    if((pwd = getpwnam(logname)))
     {
       llent = getlluid(pwd->pw_uid);
       if ( llent != (void *)0)
@@ -231,4 +246,10 @@ void
 setllent(self)
 SV *self
    PPCODE:
-     setllent(); 
+    HV *self_hash;
+
+    if(!SvROK(self)) 
+        croak("Must be called as an object method");
+    self_hash = (HV *)SvRV(self);
+
+    setllent(); 

@@ -1,8 +1,12 @@
-Lastlog.pm
+lib/Sys/Lastlog.pm
 Lastlog.xs
 MANIFEST
+MANIFEST.SKIP
 Makefile.PL
 README
-plastlog
-test.pl
+examples/plastlog
 META.yml                                Module meta-data (added by MakeMaker)
+t/01pod.t
+t/02podcoverage.t
+t/03lastlog.t
+Changes

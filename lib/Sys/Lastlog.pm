@@ -153,7 +153,7 @@ use vars qw(
           DynaLoader
          );
 
-($VERSION) = q$Revision: 1.4 $ =~ /([\d.]+)/;
+$VERSION = '1.5';
 
 bootstrap Sys::Lastlog $VERSION;
 
@@ -243,7 +243,7 @@ Jonathan Stowe E<lt>jns@gellyfish.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright Jonathan Stowe 2001 - 2004.
+Copyright Jonathan Stowe 2001 - 2006.
 
 This software comes with no warranty whatsoever.
 
