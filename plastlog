@@ -24,7 +24,7 @@ my $ll = Sys::Lastlog->new();
 
 while ( my @pwent = getpwent() )
 {
-   last if $pwent[2] >= 65534;
+   next if $pwent[2] >= 65534;
    my $llent = $ll->getlluid($pwent[2]) || next;
 
 
