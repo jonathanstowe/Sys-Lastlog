@@ -14,27 +14,7 @@
 #*                                                                           *
 #*****************************************************************************
 #*                                                                           *
-#*      $Log: Lastlog.pm,v $
-#*      Revision 1.4  2004/08/18 20:16:56  jonathan
-#*      * Altered tests to use Test::More
-#*      * fixed deprecation in the plastlog
-#*      * remedied the _PATH_LASTLOG mistake
-#*
-#*      Revision 1.3  2004/08/18 17:05:36  jonathan
-#*      updated readem
-#*      fixed _PATH_LASTLOG with Solaris compiler
-#*      fixed plastlog bug where lastlog file is corrupt
-#*
-#*      Revision 1.2  2004/03/02 20:28:07  jonathan
-#*      Put back in CVS
-#*
-#*      Revision 1.2  2001/03/05 08:32:27  gellyfish
-#*      Addded note about Solaris fail
-#*
-#*      Revision 1.1  2001/02/13 07:54:30  gellyfish
-#*      Initial revision
-#*
-#*                                                                           *
+#*      $Id$ $HeadURL$
 #*                                                                           *
 #*****************************************************************************
 
@@ -82,6 +62,11 @@ UID or by login name.  Each method returns an object of type Sys::Lastlog::Entry
 
 The constructor of the class.  Returns a blessed object that the other methods
 can be called on.
+
+=item lastlog_path
+
+Returns the full path to the lcoation of the lastlog file as defined by the
+operating system. Possibly only useful for diagnostic purposes currently.
 
 =item getllent
 
@@ -153,7 +138,7 @@ use vars qw(
           DynaLoader
          );
 
-$VERSION = '1.5';
+$VERSION = '1.6';
 
 bootstrap Sys::Lastlog $VERSION;
 
@@ -237,13 +222,16 @@ You also almost certainly want to *not* try and get a lastlog entry for the
 user 'nobody' as this conventionally has a uid of 65534 and the lastlog file
 doesn't get that big.
 
+It would probably be useful to set the path to the lastlog file from
+within the perl program. This is on the TODO list.
+
 =head1 AUTHOR
 
-Jonathan Stowe E<lt>jns@gellyfish.comE<gt>
+Jonathan Stowe E<lt>jns@gellyfish.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright Jonathan Stowe 2001 - 2006.
+Copyright Jonathan Stowe 2001 - 2009.
 
 This software comes with no warranty whatsoever.
 

@@ -9,3 +9,8 @@
 * Reorganised the code
 * Fixed compiler warnings with newer perls
 * CPANTS Friendly
+
+1.6 Mon Jan 19 13:02:38 GMT 2009
+
+* Changed my email address
+* Added lastlog_path() method to aid diagnostics

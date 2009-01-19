@@ -15,25 +15,10 @@
 #*                                                                           *
 #*****************************************************************************
 #*                                                                           *
-#*      $Log: Lastlog.xs,v $
-#*      Revision 1.4  2004/08/18 20:16:56  jonathan
-#*      * Altered tests to use Test::More
-#*      * fixed deprecation in the plastlog
-#*      * remedied the _PATH_LASTLOG mistake
-#*
-#*      Revision 1.3  2004/08/18 17:05:36  jonathan
-#*      updated readem
-#*      fixed _PATH_LASTLOG with Solaris compiler
-#*      fixed plastlog bug where lastlog file is corrupt
-#*
-#*      Revision 1.2  2004/03/02 20:28:07  jonathan
-#*      Put back in CVS
-#*
-#*      Revision 1.1  2001/02/13 08:27:36  gellyfish
-#*      Initial revision
-#*
+#*      $Id$ $HeadURL$
 #*                                                                           *
-#*                                                                           *
+#*      Copyright (C) Jonathan Stowe 2000 - 2009                             *
+#*   
 #*****************************************************************************
 */
 
@@ -53,6 +38,7 @@
 #endif
 
 int get_lastlog_fd(void);
+char *lastlog_path(void);
 
 struct lastlog *getllent(void)
 {
@@ -114,13 +100,16 @@ int get_lastlog_fd(void)
 
    if ( ll_fd == -1 )
    {
-     ll_fd = open(_PATH_LASTLOG,O_RDONLY);
+     ll_fd = open((char *)lastlog_path(),O_RDONLY);
    }
 
    return(ll_fd);
 }
 
-
+char *lastlog_path(void)
+{
+   return _PATH_LASTLOG;
+}
 void setllent(void)
 {
    int ll_fd;
@@ -242,6 +231,12 @@ char *logname
       XSRETURN_EMPTY;
     }
 
+void lastlog_path(self)
+SV *self
+   PPCODE:
+      EXTEND(SP,1);
+      PUSHs(sv_2mortal(newSVpv(lastlog_path(),0)));
+       
 void
 setllent(self)
 SV *self
