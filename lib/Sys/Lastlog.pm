@@ -22,7 +22,7 @@ package Sys::Lastlog;
 
 =head1 NAME
 
-Sys::Lastlog - Provide a moderately Object Oreiented Interface to lastlog 
+Sys::Lastlog - Provide a moderately Object Oriented Interface to lastlog 
                files on some Unix-like systems.
 
 =head1 SYNOPSIS

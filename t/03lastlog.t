@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Test::More tests => 6;
+use Test::More qw(no_plan);
 use_ok('Sys::Lastlog');
 my $ll;
 
@@ -8,8 +8,14 @@ ok($ll = Sys::Lastlog->new(),"Create object");
 
 my ($llent,$lp);
 
+my $login = getpwuid($<);
 ok($lp = $ll->lastlog_path(),"lastlog_path()");
-diag( "_PATH_LASTLOG: " . $lp);
-ok($llent = $ll->getlluid(0),"Get Entry by UID");
-ok($llent = $ll->getllnam('root'),"Get Entry by logname");
-ok(my $t = $llent->ll_line(),"Get ll_line");
+ok($llent = $ll->getlluid($<),"Get Entry by UID");
+ok($llent = $ll->getllnam($login),"Get Entry by logname");
+ok(my $t = $llent->ll_time(),"Get ll_time");
+
+while(my $llent = $ll->getllent() )
+{
+   ok(defined($llent), "Got an entry for UID ". $llent->uid());
+}
+
