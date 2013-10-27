@@ -128,10 +128,10 @@ SV *llent2hashref(IV count, struct lastlog *llent)
 
    ll = newHV(); 
       
-   hv_store(ll,"uid",3,newSViv(count),0);
-   hv_store(ll,"ll_time",7,newSViv((IV)llent->ll_time),0);
-   hv_store(ll,"ll_line",7,newSVpv(llent->ll_line,0),0);
-   hv_store(ll,"ll_host",7,newSVpv(llent->ll_host,0),0);
+   (void *)hv_store(ll,"uid",3,newSViv(count),0);
+   (void *)hv_store(ll,"ll_time",7,newSViv((IV)llent->ll_time),0);
+   (void *)hv_store(ll,"ll_line",7,newSVpv(llent->ll_line,0),0);
+   (void *)hv_store(ll,"ll_host",7,newSVpv(llent->ll_host,0),0);
    meth_stash = gv_stashpv("Sys::Lastlog::Entry",1);
    ll_ref = newRV((SV *)ll);
    sv_bless(ll_ref, meth_stash);
@@ -149,14 +149,12 @@ SV *self
   PPCODE:
     struct lastlog *llent;
     SV *ll_ref;
-    HV *self_hash;
 
     static IV count = 0;
 
     if(!SvROK(self)) 
         croak("Must be called as an object method");
 
-    self_hash = (HV *)SvRV(self);
 
     llent = getllent();
 
@@ -178,12 +176,10 @@ IV uid
   PPCODE:
     struct lastlog *llent;
     SV *ll_ref;
-    HV *self_hash;
 
     if(!SvROK(self)) 
         croak("Must be called as an object method");
 
-    self_hash = (HV *)SvRV(self);
 
     llent = getlluid(uid);
 
@@ -206,12 +202,10 @@ char *logname
     struct passwd *pwd;
     struct lastlog *llent;
     SV *ll_ref;
-    HV *self_hash;
 
     if(!SvROK(self)) 
         croak("Must be called as an object method");
 
-    self_hash = (HV *)SvRV(self);
     if((pwd = getpwnam(logname)))
     {
       llent = getlluid(pwd->pw_uid);
@@ -234,6 +228,8 @@ char *logname
 void lastlog_path(self)
 SV *self
    PPCODE:
+    if(!SvROK(self)) 
+        croak("Must be called as an object method");
       EXTEND(SP,1);
       PUSHs(sv_2mortal(newSVpv(lastlog_path(),0)));
        
@@ -241,10 +237,8 @@ void
 setllent(self)
 SV *self
    PPCODE:
-    HV *self_hash;
 
     if(!SvROK(self)) 
         croak("Must be called as an object method");
-    self_hash = (HV *)SvRV(self);
 
     setllent(); 
