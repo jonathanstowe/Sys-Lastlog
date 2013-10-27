@@ -138,7 +138,7 @@ use vars qw(
           DynaLoader
          );
 
-$VERSION = '1.6';
+$VERSION = '1.7';
 
 bootstrap Sys::Lastlog $VERSION;
 
@@ -212,6 +212,9 @@ This should build on most systems given the notes in README but the author
 would appreciate being informed of any unusual systems where difficulty
 may be experienced.
 
+The code is hosted at https://github.com/jonathanstowe/Sys-Lastlog so do
+feel free to fork and send pull requests
+
 Occasionaly you may find that the entries in your /etc/passwd are out of
 order and this may give rise to test failures or other problems.  You can
 either run setllent() if you find a missing entry or reorder your passwd
@@ -231,7 +234,7 @@ Jonathan Stowe E<lt>jns@gellyfish.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright Jonathan Stowe 2001 - 2009.
+Copyright Jonathan Stowe 2001 - 2013.
 
 This software comes with no warranty whatsoever.
 

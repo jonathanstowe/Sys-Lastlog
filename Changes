@@ -14,3 +14,8 @@
 
 * Changed my email address
 * Added lastlog_path() method to aid diagnostics
+
+1.7 Sun Oct 27 09:50:39 GMT 2013
+
+* Had a fixed test in git
+* Updated metadata
